@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>circle</title>
+    <style>
+        @-webkit-keyframes img_in {
+            from {
+                left : 300px;
+            }
+            to{
+                left: 0;
+
+            }
+        }
+        @-webkit-keyframes img_out {
+            from {
+                left : 0px;
+            }
+            to{
+                left: -300px;
+
+            }
+        }
+        .img_wrap{position: relative;width: 300px;height: 150px}
+        .img_wrap .img_box{width:100%;height:100%;position: absolute;}
+        .img_wrap .img_box a{display: block;width: 100%;height:100%;position: absolute;left: 0;top:0}
+        .img_wrap .img_box a img{width: 100%;height: auto}
+        .circle_icons{width: auto;position: absolute;bottom: 0;right: 0;z-index: 20}
+        .circle_icons span{cursor:pointer;display: inline-block;width: 10px;height: 10px;text-align: center;line-height:10px;color:#fff;background: #FFEC8B;border-radius: 50%;margin-right: 10px;margin-bottom: 5px;}
+        .circle_icons span.active{background: #db671a}
+        .circle_tabs{width: 100%;height: 100%;position: absolute;top:0;left: 0;}
+        .circle_tabs .tab_left,.circle_tabs .tab_right{width: 50px;height:50px;position: absolute;top:50%;margin-top:-25px;background:no-repeat center;background-size:100% 100%;z-index: 13}
+        .circle_tabs .tab_left{left: 0;background-image: url("img/arrow_left.png")}
+        .circle_tabs .tab_right{right: 0;background-image:url("img/arrow_right.png")}
+
+        .demo{width: 300px;width: 300px;height: 150px;border:1px solid #000;left: 100px;position: relative;overflow: hidden}
+        .demo .current{-webkit-animation: img_in 1s linear 1 both;}
+        .demo .cur_left{-webkit-animation: img_out 1s linear 1 both;}
+        .demo .cur_right{left: 300px;}
+
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">
+
+</div>
+<script src="circle.js" type="application/javascript"></script>
+<script>
+    ;(function () {
+       var Circle = window.dinosaur.circle,
+           circle_demo = new Circle({
+               box_dom : 'demo',
+               circle_img_list : ['img/c1.jpg','img/c2.jpg','img/c3.jpg','img/c4.jpg'],
+               circle_a_list : ['//baidu.com','//bing.com'],//没有此项，则没有a
+               circle_time : 3000,
+               has_order : false /*是否含数字*/
+       });
+        circle_demo.init();
+
+        /*后续可以添加多种模式供选择，增加属性module_type,左右滑动，渐现渐消，三张大小图切换，等等*/
+    })()
+</script>
+</body>
+</html>
