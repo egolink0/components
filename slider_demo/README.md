@@ -1,4 +1,4 @@
-## circle.js简介
+﻿## circle.js简介
 该组件主要用于图片轮播，主要包含下列可配置参数  
 * box_dom : 轮播区最外层id,string  
 * circle_img_list : 轮播的图片序列，数组，图片地址path  
@@ -13,7 +13,7 @@
            circle_demo = new Circle({
                box_dom : 'demo',
                circle_img_list : ['../img/circle_1.jpg','../img/circle_2.jpg'],
-               circle_a_list : ['//www.jj.cn','//www.jj.cn'],//没有此项，则没有a
+               circle_a_list : ['URL1','URL2'],//没有此项，则没有a
                circle_time : 3000,
                has_order : false /*是否含数字*/
        });
