@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .divParent{width: 400px;height: 300px;background: #00a0e9;margin-top: 100px;margin-left: 100px;left: 30px;position: absolute;border: 5px solid rgba(189, 158, 6, 0.89);padding-left: 20px;overflow-x: scroll}
+        .divChild{display: block;width: 100px;height: 100px;background: rgba(175, 175, 175, 1);position: absolute;top:50px;margin-left: 50px;cursor: pointer;border: 5px solid rgba(99, 113, 107, 0.89);padding-left: 20px;overflow-x: scroll}
+        .pChild{background: #ffffff;background-size: 100%;width: auto}
+    </style>
+</head>
+<body>
+<div class="divParent" id="divParent">
+    <span class="divChild" id="divChild">
+    sdfaasdsfasdfasdfasdfs
+    </span>
+    <p class="pChild">fsdfasdfadsfasdfasdfasdfsadfafgfgfdddddddddddddddddddddddddd</p>
+</div>
+<script language="javascript">
+    var h = "";
+    h += " 网页可见区域宽："+ document.body.clientWidth+"\n";
+    h += " 网页可见区域高："+ document.body.clientHeight+"\n";
+    h += " 网页可见区域宽："+ document.body.offsetWidth +" (包括边线和滚动条的宽)"+"\n";
+    h += " 网页可见区域高："+ document.body.offsetHeight +" (包括边线的宽)"+"\n";
+    h += " 网页正文全文宽："+ document.body.scrollWidth+"\n";
+    h += " 网页正文全文高："+ document.body.scrollHeight+"\n";
+    h += " 网页被卷去的上："+ document.body.scrollTop+"\n";
+    h += " 网页被卷去的左："+ document.body.scrollLeft+"\n";
+    h += " 网页正文部分上："+ window.screenTop+"\n";
+    h += " 网页正文部分左："+ window.screenLeft+"\n";
+    h += " 屏幕分辨率的宽："+ window.screen.width+"\n";
+    h += " 屏幕分辨率的高："+ window.screen.height+"\n";
+    h += " 屏幕可用工作区宽度："+ window.screen.availWidth+"\n";
+    h += " 屏幕可用工作区高度："+ window.screen.availHeight+"\n";
+    h += " 你的屏幕设置是 "+ window.screen.colorDepth +" 位彩色"+"\n";
+    h += " 你的屏幕设置 "+ window.screen.deviceXDPI +" 像素/英寸"+"\n";
+    alert(h);
+</script>
+<script>
+    var divChild = document.getElementById('divChild');//本节讨论的主元素
+    var divParent = document.getElementById('divParent');//相对divChild的offsetParent对象
+//    divChild.scrollLeft=10
+////    1.clientWidth,clientHeight
+//    console.log(divChild.clientWidth);//120,元素内尺寸，包含元素内容+内边距padding，不包括border、外边距、滚动条
+////    2.clientLeft,clientTop
+//    console.log(divChild.clientLeft);//5，边框宽度（内边距外缘到边框外缘宽度，相当于border宽）
+//
+////    3.offsetWidth,offsetHeight(即clientWidth+左右边框之和）
+//    console.log(divChild.offsetWidth);//130,元素内+元素外尺寸,包含元素内容+内边距padding+边框，不包括外边距、滚动条
+////    4.offsetLeft,offsetTop
+//    console.log(divChild.offsetLeft);//70,元素边框外缘到（！！必须已定位）父容器（即offsetParent对象）边框内缘之间（包含父边框内边距padding，不含父边框)
+////offsetParent对象:指元素最近的定位（relative,absolute）祖先元素，递归上溯，如果没有祖先元素是定位的话，会返回null
+//
+////    5.scrollWidth,scrollHeight,存在兼容问题，火狐和IE10以下计算不太一样
+//    console.log(divChild.scrollWidth);//>=120,这里得到130，可滚动元素尺寸，包括元素内容+内边距+溢出尺寸（无溢出则scrollWidth==clientWidth）
+//    console.log(divChild.scrollLeft);//可写；滚动条位置，左侧，如果scrollWidth=130，clientWidth=120，则此值范围（0-10），大于10的部分按10取值
+
+    divChild.addEventListener('mousedown',function (e) {
+        console.log(e.clientX);//205-335(元素边框外缘距离文档最左侧的距离）
+        console.log(e.screenX);//205-335(元素边框外缘距离可视区域（手机端会重新计算）最左侧的距离）
+    })
+    //相对文档,计算页面滚动位移
+    function getMousePos(event) {
+        var e = event || window.event;
+        //document.documentElement.scrollLeft,IE计算
+        //document.body.scrollLeft,chrome计算
+        //e.pageX,仅firefox支持
+        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+        var x = e.pageX || e.clientX + scrollX;
+        var y = e.pageY || e.clientY + scrollY;
+        //alert('x: ' + x + '\ny: ' + y);
+        return { 'x': x, 'y': y };
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bar{width: 400px;height: 30px;background: #00a0e9;border-radius: 30px;position: relative;margin: 200px auto 0}
+        .btn{display: block;width: 50px;height: 50px;border-radius: 50%;background: #7b7b7b;position: absolute;top:-10px;;left:0px;cursor: pointer;}
+    </style>
+</head>
+<body>
+<div class="bar" id="bar"><span class="btn" id="btn"></span></div>
+<script>
+    (function(){
+        var bar = document.getElementById('bar'),
+            btn = document.getElementById('btn'),
+            is_mousedown,/* 按下触发的move状态，开关 */
+            start_x,/* 按下开始x轴位置 */
+            move_x,/* 移动位置 */
+            end_x,
+            btn_start_left,/* 相对父元素子元素的起始位置 */
+            max_w = bar.clientWidth-btn.clientWidth,/* 容器最大位移宽度 */
+            per;/*百分比值，输出*/
+        function down(e) {
+            var e = window.event || e;
+            is_mousedown = 1;
+            start_x = e.clientX;
+            btn_start_left = btn.offsetLeft;
+
+        }
+        function up(e) {
+            is_mousedown = 0;
+        }
+        function move(e) {
+            if (is_mousedown === 1){
+                move_x = e.clientX;
+                end_x = move_x - start_x + btn_start_left;
+
+                /*限定移动范围*/
+                if (max_w < end_x){
+                    end_x = max_w;
+                }
+                if(end_x < 0){
+                    end_x = 0;
+                }
+                btn.style.left = end_x +'px';
+
+                /*音量的百分比表示*/
+                per = Math.round((end_x / max_w)*100);
+            }
+        }
+        addListener(document,'mousemove',move); //帮到document上面为了防止鼠标按下保持，// 离开有效区域释放后依然有move状态，委托到document
+        addListener(document,'mouseup',up);
+
+        addListener(btn,'mousedown',down);
+
+
+        function addListener(btn,event,handler) {
+            if (btn.addEventListener){
+                btn.addEventListener(event, handler,false);
+            }else if(btn.attachEvent){
+                btn.attachEvent(event, handler);
+            }else{
+                btn['on'+event] = handler;
+            }
+        }
+    })();
+</script>
+</body>
+</html>
