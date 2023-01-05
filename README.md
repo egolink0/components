@@ -1,2 +1,1 @@
-# dinosaur
-javascript module，belongs to dinosaur obj
+es5 components
